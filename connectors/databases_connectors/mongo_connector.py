@@ -12,9 +12,9 @@ class MongoDBConnector(Connector):
 
     def get_client(self):
         if self.user and self.password:
-            mongo_uri = f"mongodb://{self.user}:{self.password}@{self.database}:{self.port}/{self.database}?retryWrites=false&authSource=admin"
+            mongo_uri = f"mongodb://{self.user}:{self.password}@{self.host}:{self.port}/{self.db}?retryWrites=false&authSource=admin"
         else:
-            mongo_uri = f"mongodb://{self.database}:{self.port}/{self.database}?retryWrites=false"
+            mongo_uri = f"mongodb://{self.host}:{self.port}/{self.db}?retryWrites=false"
 
         return MongoClient(mongo_uri)
 
