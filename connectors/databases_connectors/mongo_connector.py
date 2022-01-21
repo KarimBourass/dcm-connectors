@@ -1,6 +1,8 @@
 from connectors.connector import Connector
 from pymongo import MongoClient
 
+import pandas as pd
+
 class MongoDBConnector(Connector):
 
     def __init__(self, host=None, user=None, password=None, port=None, database=None,  **kwargs):
