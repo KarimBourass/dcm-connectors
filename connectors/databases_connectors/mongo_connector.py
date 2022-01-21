@@ -4,6 +4,8 @@ from pymongo import MongoClient
 import pandas as pd
 import collections
 
+from bson import ObjectId
+
 
 def flatten(d, parent_key='', sep='_'):
     items = []
@@ -41,7 +43,7 @@ class MongoDBConnector(Connector):
             exec(insertion_script)
         else:
             for row in df.to_dict(orient='records'):
-                _id = row.get("_id", generate_id())
+                _id = row.get("_id", ObjectId())
                 del row["_id"]
                 col.update_one({"_id": _id}, {"$set": row}, upsert=True)
 
