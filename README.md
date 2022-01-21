@@ -26,6 +26,6 @@ Supported files extension for importing data are: **Csv**, **Json** and **Excel 
 
 ## Installation
 
-pip install git+https://github.com/wajihkat/connectors.git@master#egg=connectors
+pip install git+https://github.com/HassenMahdi/connectors.git@master#egg=connectors
 "# dcm-connectors" 
 "# dcm-connectors" 
