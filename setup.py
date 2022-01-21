@@ -10,7 +10,8 @@ requires = [
     "pandas",
     "sqlalchemy",
     "pyarrow",
-    "cx_oracle"
+    "cx_oracle",
+    "pymongo"
 ]
 setup(
     name='connectors',

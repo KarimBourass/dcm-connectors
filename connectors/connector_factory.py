@@ -6,6 +6,7 @@ from connectors.cloud_connectors.azure_connectors.blob_connector import BlobConn
 from connectors.databases_connectors.sql_connectors.postgres_connector import PostgresConnector
 from connectors.databases_connectors.sql_connectors.sql_server_connector import SqlServerConnector
 from connectors.databases_connectors.sql_connectors.oracle_connector import OracleConnector
+from connectors.databases_connectors.mongo_connector import MongoDBConnector
 
 
 class ConnectorFactory(ABC):
@@ -34,11 +35,11 @@ class ConnectorFactory(ABC):
                                           connector_settings["database"])
             return connector
         elif type == 'oracledb':
-            # connector = OracleConnector(connector_settings["host"], connector_settings["user"],
-            #                               connector_settings["password"], connector_settings["port"],
-            #                               connector_settings.get("database"), connector_settings.get("service_name"))
             connector = OracleConnector(**connector_settings)
             return connector
+        elif type == 'mongodb':
+            connector = MongoDBConnector(**connector_settings)
+            return connector 
         else:
             print(f'{type} is not a valid check')
             # raise ValueError(f'{check_code} is not a valid check')
