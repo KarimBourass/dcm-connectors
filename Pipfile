@@ -1,0 +1,19 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+azure-mgmt-datafactory = "==0.14.0"
+azure-storage-blob = "==12.4.0"
+azure-storage-file-share = "==12.1.2"
+pymssql = "*"
+psycopg2 = "*"
+pandas = "*"
+sqlalchemy = "*"
+pyarrow = "*"
+
+[requires]
+python_version = "3.7"
