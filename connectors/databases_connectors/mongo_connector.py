@@ -11,7 +11,6 @@ class MongoDBConnector(Connector):
         self.password = password
 
     def get_client(self):
-        =mongodb://berexia:Berexia934jY@13.36.203.148:27017/ghpsj?retryWrites=false&authSource=admin
         if self.user and self.password:
             mongo_uri = f"mongodb://{self.user}:{self.password}@{self.database}:{self.port}/{self.database}?retryWrites=false&authSource=admin"
         else:
