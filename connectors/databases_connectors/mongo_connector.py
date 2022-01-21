@@ -2,10 +2,12 @@ from connectors.connector import Connector
 from pymongo import MongoClient
 
 import pandas as pd
+import collections
 
 
 def flatten(d, parent_key='', sep='_'):
     items = []
+
     for k, v in d.items():
         new_key = parent_key + sep + k if parent_key else k
         if isinstance(v, collections.MutableMapping):
@@ -13,7 +15,7 @@ def flatten(d, parent_key='', sep='_'):
         else:
             items.append((new_key, v))
     return dict(items)
-    
+
 class MongoDBConnector(Connector):
 
     def __init__(self, host=None, user=None, password=None, port=None, database=None,  **kwargs):
