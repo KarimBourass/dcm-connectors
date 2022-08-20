@@ -11,7 +11,8 @@ requires = [
     "sqlalchemy",
     "pyarrow",
     "cx_oracle",
-    "pymongo"
+    "pymongo",
+    "boto3"
 ]
 setup(
     name='connectors',
