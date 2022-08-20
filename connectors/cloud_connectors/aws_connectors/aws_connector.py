@@ -3,9 +3,6 @@
 import boto3
 
 
-from connectors.connector import Connector
-
-
 class AWSConnector:
 
     def __init__(self, key_id, key_secret):
