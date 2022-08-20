@@ -7,6 +7,7 @@ from connectors.databases_connectors.sql_connectors.postgres_connector import Po
 from connectors.databases_connectors.sql_connectors.sql_server_connector import SqlServerConnector
 from connectors.databases_connectors.sql_connectors.oracle_connector import OracleConnector
 from connectors.databases_connectors.mongo_connector import MongoDBConnector
+from connectors.cloud_connectors.aws_connectors.aws_s3_connector import AWSS3Connector
 
 
 class ConnectorFactory(ABC):
@@ -39,7 +40,10 @@ class ConnectorFactory(ABC):
             return connector
         elif type == 'mongodb':
             connector = MongoDBConnector(**connector_settings)
-            return connector 
+            return connector
+        elif type == 'amazon_storage':
+            connector = AWSS3Connector(**connector_settings)
+            return connector
         else:
             print(f'{type} is not a valid check')
             # raise ValueError(f'{check_code} is not a valid check')
