@@ -42,7 +42,8 @@ class ConnectorFactory(ABC):
             connector = MongoDBConnector(**connector_settings)
             return connector
         elif type == 'amazon_storage':
-            connector = AWSS3Connector(**connector_settings)
+            connector = AWSS3Connector(connector_settings["key_id"], connector_settings["key_secret"],
+                                       connector_settings["bucket_name"])
             return connector
         else:
             print(f'{type} is not a valid check')

@@ -7,17 +7,29 @@ from connectors.connector import Connector
 
 class AWSS3Connector(Connector, AWSConnector):
 
-    def __init__(self, key_id, key_secret, bucket_name, s3_key):
+    def __init__(self, key_id, key_secret, bucket_name):
         super().__init__(key_id, key_secret)
         self.bucket_name = bucket_name
-        self.s3_key = s3_key
 
     
     def get_df(self, *args, **kwargs):
+        s3_key = kwargs.get('s3_key',None)
         s3_session = self.session
-        response = s3_session.get_object(Bucket=self.bucket_name, Key=self.s3_key)
-        df = pd.read_csv(response.get("Body"))
+        response = s3_session.get_object(Bucket=self.bucket_name, Key=s3_key)
+        header = response["ResponseMetadata"].get("HTTPHeaders")
+        df = read_df(header["content-type"], response.get("Body"))
         return df
 
     def upload_df(self, *args, **kwargs):
         pass
+
+    
+    def read_df(extention, byte_stream):
+        if extention is 'text/csv':
+            return pd.read_csv(byte_stream)
+        elif extention is "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+            return pd.read_excel(byte_stream)
+        else:
+            raise Exception("UNSUPPORTED FILE FORMAT")
+
+    
