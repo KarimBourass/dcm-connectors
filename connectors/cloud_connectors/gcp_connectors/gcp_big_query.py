@@ -8,8 +8,6 @@ class GCPBigQueryonnector(Connector, GCPConnector):
 
     def __init__(self, **kwargs):
         super().__init__(kwargs)
-        self.bucket_name = kwargs["bucket_name"]
-
 
     def get_df(self, *args, **kwargs):
         credentials = self.credentials
