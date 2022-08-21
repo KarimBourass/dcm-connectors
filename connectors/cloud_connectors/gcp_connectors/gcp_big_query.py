@@ -13,7 +13,7 @@ class GCPBigQueryonnector(Connector, GCPConnector):
 
     def get_df(self, *args, **kwargs):
         credentials = self.credentials
-        query = f'"""{kwargs["kwargs"]}"""'
+        query = kwargs["query"]
         df = pd.read_gbq(query, project_id=self.project_id, credentials=credentials)
         return df
 

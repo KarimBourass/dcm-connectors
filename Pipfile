@@ -21,6 +21,7 @@ google-cloud-bigquery = "*"
 google-cloud-storage = "*"
 google-auth-oauthlib = "*"
 google-api-python-client = "*"
+pandas-gbq = "==0.17.7"
 
 [requires]
 python_version = "3.7"
