@@ -17,6 +17,7 @@ pyarrow = "*"
 pymongo = "*"
 boto3 = "*"
 xlrd = "==1.2.0"
+google-cloud-bigquery = "*"
 
 [requires]
 python_version = "3.7"
