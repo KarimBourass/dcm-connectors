@@ -13,9 +13,9 @@ class AWSS3Connector(Connector, AWSConnector):
    
    
     def read_df(self, extention, byte_stream):
-        if extention is 'text/csv':
+        if extention == 'text/csv':
             return pd.read_csv(byte_stream)
-        elif extention is "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+        elif extention == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
             return pd.read_excel(byte_stream.read(), sheet_name=0)
         else:
             raise Exception("UNSUPPORTED FILE FORMAT")
