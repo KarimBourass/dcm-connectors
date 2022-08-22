@@ -1,6 +1,5 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-import pandas as pd
-from google.cloud import bigquery
 from google.oauth2 import service_account
 
 
@@ -25,4 +24,3 @@ class GCPConnector:
         }
 
         self.credentials = service_account.Credentials.from_service_account_info(credentials)
-        # self.session = bigquery.Client(credentials=credentials, project=settings["project_id"])

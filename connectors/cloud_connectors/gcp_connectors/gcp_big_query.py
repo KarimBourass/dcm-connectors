@@ -15,5 +15,11 @@ class GCPBigQueryonnector(Connector, GCPConnector):
         df = pd.read_gbq(query, project_id=self.project_id, credentials=credentials)
         return df
 
-    def upload_df(self, *args, **kwargs):
-        pass
+    # TODO: Probably its better to get file_Id and sheet_id then load it
+    def upload_df(self, df, project_name, dataset_name, table_name, *args, **kwargs):
+        credentials = self.credentials
+
+        if not df.empty:
+            destination_table = f"{dataset_name}.{table_name}"
+            df.to_gbq(destination_table=destination_table.format(dataset_name, table_name),
+                      project_id=project_name, if_exists='replace', credentials=credentials)
