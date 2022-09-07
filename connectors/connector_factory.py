@@ -4,6 +4,7 @@
 from abc import ABC, abstractmethod
 from connectors.cloud_connectors.azure_connectors.blob_connector import BlobConnector
 from connectors.cloud_connectors.gcp_connectors.gcp_big_query import GCPBigQueryonnector
+from connectors.cloud_connectors.gcp_connectors.gcp_cloud_storage import GCPCloudStorageConnector
 from connectors.databases_connectors.sql_connectors.postgres_connector import PostgresConnector
 from connectors.databases_connectors.sql_connectors.sql_server_connector import SqlServerConnector
 from connectors.databases_connectors.sql_connectors.oracle_connector import OracleConnector
@@ -45,8 +46,12 @@ class ConnectorFactory(ABC):
         elif type == 'amazon_storage':
             connector = AWSS3Connector(connector_settings["key_id"], connector_settings["key_secret"],
                                        connector_settings["bucket_name"])
+            return connector
         elif type == 'gcp':
             connector = GCPBigQueryonnector(**connector_settings)
+            return connector
+        elif type == 'gcs':
+            connector = GCPCloudStorageConnector(**connector_settings)
             return connector
         else:
             print(f'{type} is not a valid check')
