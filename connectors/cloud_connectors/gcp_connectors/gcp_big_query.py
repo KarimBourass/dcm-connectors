@@ -20,9 +20,9 @@ class GCPBigQueryonnector(Connector, GCPConnector):
         credentials = self.credentials
 
         if not df.empty:
-            destination_table = f"{dataset_name}.{table_name}"
             project_name = kwargs["project_name"]
             dataset_name = kwargs["dataset_name"] 
             table_name = kwargs["table_name"]
+            destination_table = f"{dataset_name}.{table_name}"
             df.to_gbq(destination_table=destination_table.format(dataset_name, table_name),
                       project_id=project_name, if_exists='replace', credentials=credentials)
