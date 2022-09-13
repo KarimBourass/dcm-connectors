@@ -7,7 +7,10 @@ class GCPConnector:
 
     def __init__(self, settings):
         self.project_id = settings["project_id"]
-        self.client_x509_cert_url = f"https://www.googleapis.com/robot/v1/metadata/x509/big-query%40{self.project_id}.iam.gserviceaccount.com"
+        if(settings["type"]=="gcs"):
+          self.client_x509_cert_url = f"https://www.googleapis.com/robot/v1/metadata/x509/cloud-storage%40{self.project_id}.iam.gserviceaccount.com"
+        elif (settings["type"]=="gcp"):
+          self.client_x509_cert_url = f"https://www.googleapis.com/robot/v1/metadata/x509/big-query%40{self.project_id}.iam.gserviceaccount.com"
         private_key = settings["private_key"].replace("\\n", "\n")
 
         credentials = {
