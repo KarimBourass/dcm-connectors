@@ -1,32 +1,26 @@
-import os
-from connectors.cloud_connectors.gcp_connectors.gcp_connecor import GCPConnector
 from connectors.connector import Connector
+from connectors.sftp_server.sftp_connector import SFTPServerConnector
+import os
 
-from google.cloud import storage
 
-
-class GCPCloudStorageConnector(Connector, GCPConnector):
+class SftpServer(Connector, SFTPServerConnector):
 
     def __init__(self, **kwargs):
         super().__init__(kwargs)
 
-    # TODO: Probably its better to get file_Id and sheet_id then load it
     def upload_df(self, df, *args, **kwargs):
         file_name = kwargs["file_name"]
         file_type = kwargs["file_type"]
         path = f"{file_name}.{file_type}"
         if not df.empty:
-            bucket_name = kwargs["bucket_name"]
-            file_name = kwargs["file_name"]
-            client = storage.Client(credentials=self.credentials)
-            bucket = client.get_bucket(bucket_name)
+            remote_path = kwargs["remote_path"]
             if "target_fields" in kwargs.keys() and file_type == "txt":
-                self.upload_txt(df, kwargs["target_fields"], bucket, path)
+                self.upload_txt(df, kwargs["target_fields"], path)
                 return
 
-            bucket.blob(path).upload_from_string(df.to_csv(), 'text/csv')
+            self._connection.put(localpath=remote_path, remotepath=remote_path, confirm=True)
 
-    def upload_txt(self, df, target_fields, bucket, path):
+    def upload_txt(self, df, target_fields, path):
         with open('output.txt', 'a+') as f:
             f.seek(0)
             for index, row in df.iterrows():
@@ -40,16 +34,15 @@ class GCPCloudStorageConnector(Connector, GCPConnector):
                     new_column = self.build_column(col_value, map_row['size'])
                     f.write(new_column)
                 f.write('\n')
-
-        bucket.blob(path).upload_from_filename('output.txt')
+        self._connection.put(localpath='output.txt', remotepath=path, confirm=True)
         os.remove("output.txt")
 
     def build_column(self, column, length):
-      if len(column) > length:
-        return column
-      elif length == len(column):
-        return column
-      else:
-        diff = length - len(column)
-        new_column = column + " " * diff
-        return new_column
+        if len(column) > length:
+            return column
+        elif length == len(column):
+            return column
+        else:
+            diff = length - len(column)
+            new_column = column + " " * diff
+            return new_column
