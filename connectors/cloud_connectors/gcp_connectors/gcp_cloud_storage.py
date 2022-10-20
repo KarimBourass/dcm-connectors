@@ -30,35 +30,37 @@ class GCPCloudStorageConnector(Connector, GCPConnector):
         with open('output.txt', 'a+') as f:
             f.seek(0)
             for index, row in df.iterrows():
+                line =''
                 for map_row in target_fields:
                     col_name = map_row['name']
                     if col_name in df:
                         col_value = str(row[col_name])
                     else:
                         col_value = ""
+                    line = line + build_column(col_value, map_row['size'])
 
-                    new_column = self.build_column(col_value, map_row['size'])
-                    line_length = self.build_column(new_column)
-                    f.write(line_length)
+                new_line = self.build_column(line)
+                f.write(new_line)
                 f.write('\n')
 
         bucket.blob(path).upload_from_filename('output.txt')
         os.remove("output.txt")
 
     def build_column(self, column, length):
-      if len(column) > length:
-        return column
-      elif length == len(column):
-        return column
-      else:
-        diff = length - len(column)
-        new_column = column + " " * diff
-        return new_column
+        col_length = len(column)    
+        if col_length > length:
+            return column[0:length]
+        elif length == col_length:
+            return column
+        else:
+            diff = length - col_length
+            new_column = column + " " * diff
+            return new_column
     
     def line_length(self, line, length=870):
         line_length = len(line)    
         if line_length > length:
-            return line[0:line_length]
+            return line[0:length]
         elif length == line_length:
             return line
         else:
