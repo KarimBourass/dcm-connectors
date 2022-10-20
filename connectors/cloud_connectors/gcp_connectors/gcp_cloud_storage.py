@@ -38,7 +38,8 @@ class GCPCloudStorageConnector(Connector, GCPConnector):
                         col_value = ""
 
                     new_column = self.build_column(col_value, map_row['size'])
-                    f.write(new_column)
+                    line_length = self.build_column(new_column)
+                    f.write(line_length)
                 f.write('\n')
 
         bucket.blob(path).upload_from_filename('output.txt')
@@ -53,3 +54,14 @@ class GCPCloudStorageConnector(Connector, GCPConnector):
         diff = length - len(column)
         new_column = column + " " * diff
         return new_column
+    
+    def line_length(self, line, length=870):
+        line_length = len(line)    
+        if line_length > length:
+            return line[0:line_length]
+        elif length == line_length:
+            return line
+        else:
+            diff = length - line_length
+            new_line = line + " " * diff
+            return new_line
