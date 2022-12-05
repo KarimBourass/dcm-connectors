@@ -59,7 +59,7 @@ class ConnectorFactory(ABC):
             connector = SftpServer(**connector_settings)
             return connector
         elif type == 'hubspot':
-            connector = HubSpotConnector(**connector_settings)
+            connector = HubSpotConnector(connector_settings['token'])
             return connector
         else:
             print(f'{type} is not a valid check')
