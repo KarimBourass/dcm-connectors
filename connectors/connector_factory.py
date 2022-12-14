@@ -10,7 +10,6 @@ from connectors.databases_connectors.sql_connectors.sql_server_connector import 
 from connectors.databases_connectors.sql_connectors.oracle_connector import OracleConnector
 from connectors.databases_connectors.mongo_connector import MongoDBConnector
 from connectors.cloud_connectors.aws_connectors.aws_s3_connector import AWSS3Connector
-from connectors.hubspot.hubspot import HubSpotConnector
 from connectors.sftp_server.sftp_server import SftpServer
 
 
@@ -57,9 +56,6 @@ class ConnectorFactory(ABC):
             return connector
         elif type == 'sftp':
             connector = SftpServer(**connector_settings)
-            return connector
-        elif type == 'hubspot':
-            connector = HubSpotConnector(connector_settings['token'])
             return connector
         else:
             print(f'{type} is not a valid check')
