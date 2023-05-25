@@ -26,6 +26,7 @@ class SftpServer(Connector, SFTPServerConnector):
             start_row = f"00000000NOMPARTN CREDITQUOT 8    {datetime.today().strftime('%Y%m%d')}00734161                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     "
             f.write(start_row)
             f.write('\r\n')
+            line = ""
             for index, row in df.iterrows():
                 for map_row in target_fields:
                     col_name = map_row['name']
@@ -47,7 +48,7 @@ class SftpServer(Connector, SFTPServerConnector):
         self._connection.put(localpath='output.txt', remotepath=path, confirm=True)
         os.remove("output.txt")
 
-    def build_column(column, map_row):
+    def build_column(self, column, map_row):
         length = map_row['size']
         col_length = len(column)
         if col_length > length:
@@ -62,7 +63,7 @@ class SftpServer(Connector, SFTPServerConnector):
                 new_column = column + " " * diff
             return new_column
 
-    def build_line(line, length=870):
+    def build_line(self, line, length=870):
         line_length = len(line)
         if line_length > length:
             return line[0:length]
