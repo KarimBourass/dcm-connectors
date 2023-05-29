@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from urllib.parse import quote
-import os
 import pandas as pd
 from sqlalchemy import create_engine
 
@@ -13,8 +12,8 @@ class SqlConnector(Connector):
 
     def __init__(self, host, user, password, port, database):
         self.host = host
-        self.user = os.getenv(str(user))
-        self.password = os.getenv(str(password))
+        self.user = user
+        self.password = password
         self.port = port
         self.database = database
         self.driver = None
