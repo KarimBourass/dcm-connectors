@@ -12,7 +12,7 @@ class HubSpotConnector(Connector):
         entity = kwargs['entity']
         if entity == 'contact':
             contacts = df.to_dict('records')
-            Contact(self.token).publish_contact_batch(contacts)
+            return Contact(self.token).publish_contact_batch(contacts)
         elif entity == 'company':
             companies = df.to_dict('records')
-            Company(self.token).publish_COMPANY_batch(companies)
+            return Company(self.token).publish_COMPANY_batch(companies)
