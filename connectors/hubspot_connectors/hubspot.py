@@ -1,5 +1,5 @@
 from connectors.connector import Connector
-from connectors.hubspot.entities.contact import Contact
+from connectors.hubspot_connectors.entities.contact import Contact
 
 
 class HubSpotConnector(Connector):
