@@ -51,7 +51,7 @@ class Contact():
 
         for body in bodies:
             response = requests.post(CONTACT_BATCH_URL, json=list(body), headers=self.headers)
-            print(response.status_code)
+            print(response.json())
 
     def get_all_contacts(self):
         count = 100
