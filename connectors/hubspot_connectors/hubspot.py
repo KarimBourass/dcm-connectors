@@ -10,4 +10,5 @@ class HubSpotConnector(Connector):
     def upload_df(self, df, *args, **kwargs):
         entity = kwargs['entity']
         if entity == 'contact':
-            Contact(self.token).get_all_contacts()
+            contacts = df.to_dict('records')
+            Contact(self.token).publish_contact_batch(contacts)

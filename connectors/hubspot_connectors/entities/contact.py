@@ -6,13 +6,13 @@ from flatten_json import flatten
 import numpy as np
 import math
 
+
 CHUNK_SIZE = 1
 CONTACT_BATCH_URL = "https://api.hubapi.com/contacts/v1/contact/batch"
 CONTACT_PROPERTIES_URL = "https://api.hubapi.com/properties/v1/contacts/properties"
 CONTACT_GET_ALL_URL = "https://api.hubapi.com/contacts/v1/lists/all/contacts/all?"
 CONTACT_GET_BY_EMAIL_URL = 'https://api.hubapi.com/contacts/v1/contact/email/{}/profile'
 CONTACT_VID_URL = "https://api.hubapi.com/contacts/v1/contact/vid/{}"
-
 
 class Contact():
 
@@ -29,7 +29,12 @@ class Contact():
     def format_batch_contacts(self, contacts, contact_properties):
         result = []
         for c in contacts:
-            my_dict = {"email": c['email']}
+            my_dict = {}
+            if "vid" in c.keys():
+                my_dict.update({"vid": c['vid']})
+            elif "email" in c.keys():
+                my_dict.update({"email": c['email']})
+
             properties = [{"property": k, "value": c[k]} for k in c.keys() if k in contact_properties]
             my_dict['properties'] = properties
             result.append(my_dict)
