@@ -37,23 +37,24 @@ class Company():
             my_dict['properties'] = props
             result.append(my_dict)
 
-        # Split arrays
         result = split_array(result)
         return result
 
     def build_companies_vids(self, results, df):
-        data = [{"company_vid": r['id'], "id_sf_company": r['properties']
-                 ['hs_object_id']} for r in results]
+        data = [
+            {
+                "company_vid": r['id'],
+                "name": r['properties']['name'],
+                "id_sf_company": r['properties']['hs_object_id']
+            } for r in results
+        ]
         df = df.append(data, ignore_index=True)
         return df
-
-    # Create or Update Batch Companies
-    # Note: The batch size should not exceed 1000 companies per request.
 
     def publish_COMPANY_batch(self, companies):
         company_properties = self.get_company_properties()
         bodies = self.format_batch_companies(companies, company_properties)
-        df = pd.DataFrame()  # Initialize an empty DataFrame
+        df = pd.DataFrame()
         for body in bodies:
             response = requests.post(COMPANY_BATCH_URL, json={
                                      "inputs": list(body)}, headers=self.headers)
