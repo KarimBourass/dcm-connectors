@@ -44,6 +44,8 @@ class Company():
         data = [
             {
                 "company_vid": r['id'],
+                # todo: hhh
+                "company_id": r['properties']['company_id'],
                 "name": r['properties']['name'],
                 "id_sf_company": r['properties']['hs_object_id']
             } for r in results
