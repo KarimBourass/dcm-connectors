@@ -12,13 +12,12 @@ class SftpServer(Connector, SFTPServerConnector):
         file_name = kwargs["file_name"]
         file_type = kwargs["file_type"]
         path = f"{file_name}.{file_type}"
-        if not df.empty:
-            remote_path = path
-            if "target_fields" in kwargs.keys() and file_type == "txt":
-                self.upload_txt(df, kwargs["target_fields"], path)
-                return
+        remote_path = path
+        if "target_fields" in kwargs.keys() and file_type == "txt":
+            self.upload_txt(df, kwargs["target_fields"], path)
+            return
 
-            self._connection.put(localpath=remote_path, remotepath=remote_path, confirm=True)
+        self._connection.put(localpath=remote_path, remotepath=remote_path, confirm=True)
 
     def upload_txt(self, df, target_fields, path):
         with open('output.txt', 'a+') as f:
