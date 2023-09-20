@@ -56,7 +56,8 @@ class ConnectorFactory(ABC):
             connector = GCPCloudStorageConnector(**connector_settings)
             return connector
         elif type == 'sftp':
-            connector = SftpServer(**connector_settings)
+            connector = SftpServer(connector_settings["host"], connector_settings["port"],
+                                   connector_settings["user"], connector_settings["password"])
             return connector
         elif type == 'hubspot':
             connector = HubSpotConnector(connector_settings['token'])
