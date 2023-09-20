@@ -5,11 +5,11 @@ from paramiko import Transport, SFTPClient
 
 class SFTPServerConnector:
 
-    def __init__(self, settings):
-        self.host = settings["host"]
-        self.port = settings["port"]
-        self.username = settings["user"]
-        self.password = settings["password"]
+    def __init__(self, host, port, user,password):
+        self.host = host
+        self.port = port
+        self.username = user
+        self.password = password
         self.create_connection(self.host, self.port, self.username, self.password)
 
     @classmethod

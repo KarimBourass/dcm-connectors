@@ -5,8 +5,8 @@ from datetime import datetime
 
 class SftpServer(Connector, SFTPServerConnector):
 
-    def __init__(self, **kwargs):
-        super().__init__(kwargs)
+    def __init__(self, host, port, user,password):
+        super().__init__(host, port, user,password)
 
     def upload_df(self, df, *args, **kwargs):
         file_name = kwargs["file_name"]
