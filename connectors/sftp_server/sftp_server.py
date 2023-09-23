@@ -1,9 +1,8 @@
-from connectors.connector import Connector
 from connectors.sftp_server.sftp_connector import SFTPServerConnector
 import os
 from datetime import datetime
 
-class SftpServer(Connector, SFTPServerConnector):
+class SftpServer(SFTPServerConnector):
 
     def __init__(self, host, port, user,password):
         super().__init__(host, port, user,password)
