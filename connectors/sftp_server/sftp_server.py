@@ -9,6 +9,7 @@ class SftpServer(Connector, SFTPServerConnector):
         super().__init__(host, port, user,password)
 
     def upload_df(self, df, *args, **kwargs):
+        print("Uploading file to SFTP Server")
         file_name = kwargs["file_name"]
         file_type = kwargs["file_type"]
         path = f"{file_name}.{file_type}"
