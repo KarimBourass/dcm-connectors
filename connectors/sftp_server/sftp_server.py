@@ -20,7 +20,7 @@ class SftpServer(SFTPServerConnector):
         self._connection.put(localpath=remote_path, remotepath=remote_path, confirm=True)
 
     def upload_txt(self, df, target_fields, path):
-        with open('output.txt', 'a+') as f:
+        with open('output.txt', 'w') as f:
             f.seek(0)
             start_row = f"00000000NOMPARTN CREDITQUOT 8    {datetime.today().strftime('%Y%m%d')}00734161                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     "
             f.write(start_row)
