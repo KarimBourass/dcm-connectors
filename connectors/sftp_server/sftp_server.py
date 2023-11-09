@@ -37,7 +37,9 @@ class SftpServer(SFTPServerConnector):
                     line = line + self.build_column(col_value, map_row)
                     
                 new_line = self.build_line(line)
+                line=""
                 f.write(new_line)
+                new_line=""
                 f.write('\r\n')
                 
             end_row = f"99999999NOMPARTN CREDIT     8    {datetime.today().strftime('%Y%m%d')}0073416100000014                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             "
